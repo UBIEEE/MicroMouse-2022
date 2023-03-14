@@ -1,6 +1,7 @@
 /*
  * Written by: Ahmad Saeed Mohammad Saeed
  * mail: ahmad._.saeed@outlook.com
+ * turtorial can be found here: https://www.instructables.com/Controlling-Bipolar-Stepper-Motors-with-Arduino-wi/
  */
  
 #define A        2                     // the pin connected to the wire A of the coil A (or to the H-bridge pin controlling the same wire) 
