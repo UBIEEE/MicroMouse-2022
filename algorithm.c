@@ -1,6 +1,7 @@
 
 // helper functions to implement
-
+#include "helpers.h"
+#include <stdbool.h>
 
 #define MAZE_SIZE 16
 

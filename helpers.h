@@ -1,7 +1,7 @@
 #ifndef HELPERS_FILE
 #define HELPERS_FILE
 
-
+#include <stdint.h>
 typedef struct 
 {
     uint8_t status;
