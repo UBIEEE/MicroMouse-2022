@@ -3,12 +3,6 @@
 #include <stdbool.h>
 #include "helpers.h"
 
-typedef struct 
-{
-    uint8_t status;
-    uint8_t position;
-} cell;
-
 #define STACK_LENGTH 40
 // Algorithm was simulated 1,000,000 times and the largest the stack ever got was 38
 cell stack[STACK_LENGTH];
