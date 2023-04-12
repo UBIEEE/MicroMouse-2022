@@ -1,4 +1,5 @@
 # Make file for arduino
+# TODO also is this a c or c++ project, we are using the c++ compiler
 
 test: helloWorld.c
 	g++ -o hello helloWorld.c 
@@ -11,7 +12,7 @@ helpers: helpers.c
 PHONY: clean
 
 algorithm: algorithm.c
-	g++ -o algorithm algorithm.c
+	g++ -o runner.c algorithm.h algorithm.c
 	./algorithm
 PHONY: clean
 
