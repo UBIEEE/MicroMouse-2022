@@ -2,12 +2,16 @@
 #define HELPERS_FILE
 
 #include <stdint.h>
+#include <stdbool.h>
+
+/***********************************
+ * Cell representation functionality
+ * *********************************/
 typedef struct 
 {
     uint8_t status;
     uint8_t position;
 } cell;
-
 
 bool push(cell c);
 

@@ -1,21 +1,15 @@
 # Make file for arduino
-
-test: helloWorld.c
-	g++ -o hello helloWorld.c 
-	./hello
-PHONY: clean
-
-helpers: helpers.c
-	g++ -o helpers helpers.c
-	./helpers
-PHONY: clean
-
-algorithm: algorithm.c
-	g++ -o algorithm algorithm.c
-	./algorithm
-PHONY: clean
+# TODO also is this a c or c++ project, we are using the c++ compiler
 
 clean:
-	rm -f hello
 	rm -f helpers
-	rm -f algorithm
+	rm -f algo
+
+algo: algorithm.c helpers.c
+	clang -o algo runner.c helpers.c algorithm.c
+	./algo
+PHONY: all
+
+all: algo helpers
+	make clean
+	make algo
