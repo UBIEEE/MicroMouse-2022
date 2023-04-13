@@ -2,6 +2,7 @@
 #define HELPERS_FILE
 
 #include <stdint.h>
+#include <stdbool.h>
 
 /***********************************
  * Cell representation functionality
