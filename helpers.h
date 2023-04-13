@@ -2,6 +2,8 @@
 #define HELPERS_FILE
 
 #include <stdint.h>
+#include <stdbool.h>
+
 typedef struct 
 {
     uint8_t status;
