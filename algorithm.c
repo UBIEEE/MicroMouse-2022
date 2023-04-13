@@ -12,8 +12,8 @@ extern cell *neighbors;
 // is_destination()
 bool is_destination(cell current_cell)
 {
-    int cx = get_x(current_cell);
-    int cy = get_y(current_cell);
+    uint8_t cx = get_x(current_cell);
+    uint8_t cy = get_y(current_cell);
 
     int goals[2] = { ((MAZE_SIZE/2) - 1), MAZE_SIZE};
 
@@ -100,7 +100,7 @@ char *where_is_neighbor(cell *current,cell *neighbor){
 
 
 void algorithm(){
-    fprintf(stderr, "This algorithm can print things");
+    fprintf(stderr, "This algorithm can print things\n");
 }
 
 // find_valid_neighbors()
