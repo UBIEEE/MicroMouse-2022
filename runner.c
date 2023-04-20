@@ -3,8 +3,8 @@
     for our threads and whatever
 */
 #include <stdio.h>
-#include "lib/helpers.h"
-#include "algos/algorithm.h"
+#include "helpers.h"
+#include "algorithm.h"
 
 
 int main(int argc, char *argv[]) {

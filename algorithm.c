@@ -1,6 +1,9 @@
 
 // helper functions to implement
+#include "helpers.h"
 #include "algorithm.h"
+#include <stdbool.h>
+#include <stdio.h>
 
 #define MAZE_SIZE 16
 
@@ -95,10 +98,9 @@ char *where_is_neighbor(cell *current,cell *neighbor){
 }
 
 
+
 void algorithm(){
-    panic ("I panic now :/ ");
     fprintf(stderr, "This algorithm can print things\n");
-    
 }
 
 // find_valid_neighbors()
