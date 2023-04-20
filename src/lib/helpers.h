@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+
 /***********************************
  * Cell representation functionality
  * *********************************/
