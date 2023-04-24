@@ -104,7 +104,45 @@ void algorithm(){
     fprintf(stderr, "This algorithm can print things\n");
 }
 
-// find_valid_neighbors()
+int manhatten_distance(cell location)
+{
+    int goal_lower = (MAZE_SIZE/2) - 1;
+    int goal_upper = MAZE_SIZE/2;
+
+    int lc_x = get_x(location);
+    int lc_y = get_y(location);
+
+    int tc_x;
+    int tc_y;
+
+    // for x
+    if (abs(lc_x - goal_lower) < abs(lc_x - goal_upper))
+    {
+        tc_x = goal_lower;
+    }
+    else
+    {
+        tc_x = goal_upper;
+    }
+
+    // for y
+    if (abs(lc_y - goal_lower) < abs(lc_y - goal_upper))
+    {
+        tc_y = goal_lower;
+    }
+    else
+    {
+        tc_y = goal_upper;
+    }
+
+    int dx = abs(tc_x - lc_x);
+    int dy = abs(tc_y - lc_y);
+
+    int total_manahatten_distance = dx + dy;
+    return total_manahatten_distance;
+
+}
+
 
 bool neighbor_is_reachable(cell current, cell neighbor)
 {
@@ -134,7 +172,7 @@ bool neighbor_is_reachable(cell current, cell neighbor)
     }
 }
 
-cell* find_valid_neighbors(cell current, cell** grid)
+cell* find_valid_neighbors_sorted(cell current, cell** grid)
 {
 
     // Implementing found neighbors portion of the code: 
@@ -176,6 +214,11 @@ cell* find_valid_neighbors(cell current, cell** grid)
             }
         }
     }
+
+    // Sort the array in terms of the manhatten distance so that the closest cells are at the end of the array
+
+    // Implement a selection sort on the valid_neighbors array using the manhatten distance as the value to sort by
+
     
     return valid_neighbors;
 }
