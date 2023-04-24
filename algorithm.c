@@ -4,6 +4,7 @@
 #include "algorithm.h"
 #include <stdbool.h>
 #include <stdio.h>
+#include <string.h>
 
 #define MAZE_SIZE 16
 
@@ -104,7 +105,77 @@ void algorithm(){
 }
 
 // find_valid_neighbors()
-    // find_any_neighbors()
-        // where_is_neighbors()
 
-// optimize_neighbor_order()
+bool neighbor_is_reachable(cell current, cell neighbor)
+{
+    if(is_visited(neighbor))
+    {
+        char *where_is = where_is_neighbor(&current, &neighbor);
+        if ((strcmp(where_is, "Above") == 0) && (has_top_border(current) == false))
+        {
+            return true;
+        } 
+        else if ((strcmp(where_is, "Right") == 0) && (has_right_border(current) == false))
+        {
+            return true;
+        }
+        else if ((strcmp(where_is, "Left") == 0) && (has_left_border(current) == false))
+        {
+            return true;
+        }
+        else if ((strcmp(where_is, "Below") == 0) && (has_bottom_border(current) == false))
+        {
+            return true;
+        }
+        else 
+        {
+            return false;
+        }
+    }
+}
+
+cell* find_valid_neighbors(cell current, cell** grid)
+{
+
+    // Implementing found neighbors portion of the code: 
+
+    cell valid_neighbors[4];
+    int current_valid_neighbor_index = 0;
+
+    int cx = get_x(current);
+    int cy = get_y(current);
+
+    //int range = {-1, 0, 1};
+    for (int xbump = -1; xbump < 2; xbump++)
+    {
+        for (int ybump = -1; ybump < 2; ybump++)
+        {
+
+            int y_index = cy + ybump;
+            int x_index = cx + xbump;
+            if (
+                // Abs conditional will only pass cells that are at indexes that can be neighbors (n)
+                // BnB
+                // nCn
+                // BnB
+                (abs(ybump) != abs(xbump)) 
+                && (y_index >= 0) // Not out of bounds in the array
+                && (y_index <= MAZE_SIZE - 1)
+                && (x_index >= 0)
+                && (x_index <= MAZE_SIZE - 1)
+            ){
+                
+                // add neighbor found to array if it is valid
+                cell neighbor = grid[y_index][x_index];
+                if (neighbor_is_reachable(current, neighbor))
+                {
+                    valid_neighbors[current_valid_neighbor_index] = grid[y_index][x_index]; // HOW ARE WE INDEXING INTO GRID?
+                    current_valid_neighbor_index++;
+                }
+                
+            }
+        }
+    }
+    
+    return valid_neighbors;
+}
