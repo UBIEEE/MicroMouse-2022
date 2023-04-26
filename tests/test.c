@@ -22,4 +22,26 @@ int top_of_stack = 0;
 
 cell testCell = { 0b11100001, 0b11111111} //3 boarders and 1 neighbor 
 
+if(has_top_border(testCell) == true){ //Has a 1 in the first bit
+    return true
+}else{
+    return false
+}
 
+if(has_bottom_border(testCell) == true){ //Has a 1 in the second bit
+    return true 
+}else{
+    return false
+}
+
+if(has_right_border(testCell) == true){//Has a 1 in the third bit
+    return true  
+}else{
+    return false
+}
+
+if(has_left_border(testCell) != true){ //Has a 0 in the fourth bit
+    return true 
+}else{
+    return false
+}
