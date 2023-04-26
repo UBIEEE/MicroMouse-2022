@@ -6,7 +6,16 @@
 
 #define MAZE_SIZE 16
 
-extern cell *neighbors;
+// extern cell *neighbors;
+
+bool cells_are_same(cell current, cell comparee)
+{
+    if ((current.position == comparee.position) && (current.status == comparee.status))
+    {
+        return true;
+    }
+    return false;
+}
 
 // is_destination()
 bool is_destination(cell current_cell)
@@ -242,4 +251,20 @@ void find_valid_neighbors_sorted(cell current, cell** grid)
         push(valid_neighbors[i]);
     }
     
+}
+
+cell movement(cell current_cell, cell **grid) // gonna need something to represent the mouse aswell
+{
+    cell target_cell = pop();
+
+    if (cells_are_same(current_cell, target_cell))
+    {
+        // set the current cell as visited and update the grid with the information
+        sensing(); // sensing function needs to be implemented
+    }
+
+    while ((cells_are_same(current_cell, target_cell) == false) && (are_valid_neighbors(current_cell, target_cell) == false))
+    {
+
+    }
 }
