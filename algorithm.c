@@ -102,7 +102,7 @@ void algorithm(){
     fprintf(stderr, "This algorithm can print things\n");
 }
 
-int manhatten_distance(cell location)
+int manhattan_distance(cell location)
 {
     int goal_lower = (MAZE_SIZE/2) - 1;
     int goal_upper = MAZE_SIZE/2;
@@ -136,8 +136,8 @@ int manhatten_distance(cell location)
     int dx = abs(tc_x - lc_x);
     int dy = abs(tc_y - lc_y);
 
-    int total_manahatten_distance = dx + dy;
-    return total_manahatten_distance;
+    int total_manhattan_distance = dx + dy;
+    return total_manhattan_distance;
 
 }
 
@@ -214,18 +214,18 @@ void find_valid_neighbors_sorted(cell current, cell** grid)
         }
     }
 
-    // Sort the array in terms of the manhatten distance so that the closest cells are at the end of the array
-    // Implement a selection sort on the valid_neighbors array using the manhatten distance as the value to sort by
+    // Sort the array in terms of the manhattan distance so that the closest cells are at the end of the array
+    // Implement a selection sort on the valid_neighbors array using the manhattan distance as the value to sort by
 
     for (int i = 0; i < current_valid_neighbor_index; i++)
     {
-        int largest_val = manhatten_distance(valid_neighbors[i]);
+        int largest_val = manhattan_distance(valid_neighbors[i]);
         int largest_index = i;
         for (int j = i; j < current_valid_neighbor_index; j++)
         {
-            if ((manhatten_distance(valid_neighbors[j]) + 1) > largest_val)
+            if ((manhattan_distance(valid_neighbors[j]) + 1) > largest_val)
             {
-                largest_val = manhatten_distance(valid_neighbors[j]) + 1;
+                largest_val = manhattan_distance(valid_neighbors[j]) + 1;
                 largest_index = j;
             }
         }
