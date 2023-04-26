@@ -32,7 +32,7 @@ bool is_destination(cell current_cell)
         }
     }
 
-    if (bx & by)
+    if (bx && by)
     {
         return true;
     }
@@ -48,19 +48,19 @@ bool are_valid_neighbors(cell current_cell, cell target_cell)
     int tx = get_x(target_cell);
     int ty = get_y(target_cell);
 
-    if ((cy == ty) & (cx == tx + 1) & (has_left_border(current_cell) == false))
+    if ((cy == ty) && (cx == tx + 1) && (has_left_border(current_cell) == false))
     {
         return true;
     }
-    else if ((cy == ty) & (cx + 1 == tx) & (has_right_border(current_cell) == false))
+    else if ((cy == ty) && (cx + 1 == tx) && (has_right_border(current_cell) == false))
     {
         return true;
     }
-    else if ((cx == tx) & (cy + 1 == ty) & (has_bottom_border(current_cell) == false))
+    else if ((cx == tx) && (cy + 1 == ty) && (has_bottom_border(current_cell) == false))
     {
         return true;
     }
-    else if ((cx == tx) & (cy == ty + 1) & (has_top_border(current_cell) == false))
+    else if ((cx == tx) && (cy == ty + 1) && (has_top_border(current_cell) == false))
     {
         return true;
     }
@@ -175,7 +175,7 @@ void find_valid_neighbors_sorted(cell current, cell** grid)
 
     // Implementing found neighbors portion of the code: 
 
-    cell valid_neighbors[4];
+    cell valid_neighbors[4]; // there can onoy ever be a maximum of 4 neighbors
     
     int current_valid_neighbor_index = 0;
 
