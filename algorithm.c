@@ -1,5 +1,3 @@
-
-// helper functions to implement
 #include "helpers.h"
 #include "algorithm.h"
 #include <stdbool.h>
@@ -172,12 +170,13 @@ bool neighbor_is_reachable(cell current, cell neighbor)
     }
 }
 
-cell* find_valid_neighbors_sorted(cell current, cell** grid)
+void find_valid_neighbors_sorted(cell current, cell** grid)
 {
 
     // Implementing found neighbors portion of the code: 
 
     cell valid_neighbors[4];
+    
     int current_valid_neighbor_index = 0;
 
     int cx = get_x(current);
@@ -216,9 +215,31 @@ cell* find_valid_neighbors_sorted(cell current, cell** grid)
     }
 
     // Sort the array in terms of the manhatten distance so that the closest cells are at the end of the array
-
     // Implement a selection sort on the valid_neighbors array using the manhatten distance as the value to sort by
 
+    for (int i = 0; i < current_valid_neighbor_index; i++)
+    {
+        int largest_val = manhatten_distance(valid_neighbors[i]);
+        int largest_index = i;
+        for (int j = i; j < current_valid_neighbor_index; j++)
+        {
+            if ((manhatten_distance(valid_neighbors[j]) + 1) > largest_val)
+            {
+                largest_val = manhatten_distance(valid_neighbors[j]) + 1;
+                largest_index = j;
+            }
+        }
+
+        // Swap values
+        cell temp = valid_neighbors[i];
+        valid_neighbors[i] = valid_neighbors[largest_index];
+        valid_neighbors[largest_index] = temp;
+    }
+
+    // Add the neighbors to the stack, starting at the begining
+    for (int i = 0; i < current_valid_neighbor_index; i++)
+    {
+        push(valid_neighbors[i]);
+    }
     
-    return valid_neighbors;
 }
