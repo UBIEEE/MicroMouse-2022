@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define STACK_LENGTH 40
 
 // Holds the testing flags that we want to pass into our testing
 typedef struct Flags {
