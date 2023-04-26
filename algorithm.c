@@ -91,7 +91,7 @@ char *where_is_neighbor(cell *current,cell *neighbor){
     }
     if ( ret == "None found"){
         // In the case something goes wrong we will get an error message here
-        fprintf(stderr, "Something happened neighbors aren't boardering each other");
+        fprintf(stderr, "Something happened neighbors aren't bordering each other");
     }
     return ret;
 }
@@ -175,7 +175,7 @@ void find_valid_neighbors_sorted(cell current, cell** grid)
 
     // Implementing found neighbors portion of the code: 
 
-    cell valid_neighbors[4]; // there can onoy ever be a maximum of 4 neighbors
+    cell valid_neighbors[4]; // there can only ever be a maximum of 4 neighbors
     
     int current_valid_neighbor_index = 0;
 
@@ -236,7 +236,7 @@ void find_valid_neighbors_sorted(cell current, cell** grid)
         valid_neighbors[largest_index] = temp;
     }
 
-    // Add the neighbors to the stack, starting at the begining
+    // Add the neighbors to the stack, starting at the beginning
     for (int i = 0; i < current_valid_neighbor_index; i++)
     {
         push(valid_neighbors[i]);
