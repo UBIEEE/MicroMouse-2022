@@ -24,7 +24,7 @@ int top_of_stack = 0;
 // } cell;
 
 
-cell testCell = { 0b11100001, 0b11111111}; //3 boarders and 1 neighbor 
+cell testCell = { 0b11100001, 0b11111111}; //3 boarders and 1 parent 
 void *boarderPatrol(cell testCell, FILE *input_file){
     FILE *var = (input_file == NULL) ? stderr : input_file;
 
@@ -51,7 +51,47 @@ if(has_left_border(testCell) != true){ //Has a 0 in the fourth bit
 }else{
     fprintf(var, "error on left");
 }
+
+if(is_visited(testCell) == true){
+    return "note to eric" //eric this only checks boarders, So, possible boarders
+}
 }//end of method
+
+void *parentalWatch(cell testCell, File *input_file){
+     FILE *var = (input_file == NULL) ? stderr : input_file;
+
+     if(top_is_parent(testCell)){
+        fprintf(var, "True")
+     }else{
+        fprintf(var, "error on top parent")
+     }
+
+     if(bottom_is_parent(testCell) != ){
+        fprintf(var, "True")
+     }else{
+        fprintf(var, "error on top parent")
+     }
+
+     if(right_is_parent(testCell) != ){
+        fprintf(var, "True")
+     }else{
+        fprintf(var, "error on top parent")
+     }
+
+     if(left_is_parent(testCell) == true){
+        fprintf(var, "True")
+     }else{
+        fprintf(var, "error on top parent")
+     }
+
+     if(has_parent(testCell) == true){
+        fprintf(var, "True")
+     }else{
+        fprintf(var, "error on parent check")
+     }
+}
+
+
 
 // Can be thrown in the case we are segfaulting
 void panic(FILE *input_file, char *message){
