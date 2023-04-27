@@ -6,7 +6,16 @@
 
 #define MAZE_SIZE 16
 
-extern cell *neighbors;
+// extern cell *neighbors;
+
+bool cells_are_same(cell current, cell comparee)
+{
+    if ((current.position == comparee.position) && (current.status == comparee.status))
+    {
+        return true;
+    }
+    return false;
+}
 
 // is_destination()
 bool is_destination(cell current_cell)
@@ -17,7 +26,7 @@ bool is_destination(cell current_cell)
     int goals[2] = { ((MAZE_SIZE/2) - 1), MAZE_SIZE};
 
     bool bx = false;
-    bool by = false;
+    bool bOOBy = false;
 
     // check if cx and cy are inside of goals
     for (int i = 0; i < 2; i++)
@@ -28,11 +37,11 @@ bool is_destination(cell current_cell)
         }
         if (cy == goals[i])
         {
-            by = true;
+            bOOBy = true;
         }
     }
 
-    if (bx && by)
+    if (bx && bOOBy)
     {
         return true;
     }
@@ -215,7 +224,7 @@ void find_valid_neighbors_sorted(cell current, cell** grid)
     }
 
     // Sort the array in terms of the manhattan distance so that the closest cells are at the end of the array
-    // Implement a selection sort on the valid_neighbors array using the manhattan distance as the value to sort by
+    // Implement a selection sort on the valid_neighbors array using the manhattan distance as the value to sort bOOBy
 
     for (int i = 0; i < current_valid_neighbor_index; i++)
     {
@@ -242,4 +251,20 @@ void find_valid_neighbors_sorted(cell current, cell** grid)
         push(valid_neighbors[i]);
     }
     
+}
+
+cell movement(cell current_cell, cell **grid) // gonna need something to represent the mouse aswell
+{
+    cell target_cell = pop();
+
+    if (cells_are_same(current_cell, target_cell))
+    {
+        // set the current cell as visited and update the grid with the information
+        sensing(); // sensing function needs to be implemented
+    }
+
+    while ((cells_are_same(current_cell, target_cell) == false) && (are_valid_neighbors(current_cell, target_cell) == false))
+    {
+
+    }
 }

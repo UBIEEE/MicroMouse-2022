@@ -249,7 +249,7 @@ void set_left_as_parent(cell *input)
     (*input).status = state | key;
 }
 
-// Both position coordinates are held in one uint8_t xxxxyyyy
+// Both position coordinates are held in one uint8_t with xxxxyyyy
 uint8_t make_position_coordinates(int y, int x)
 {
     uint8_t x_val = (uint8_t) x;
