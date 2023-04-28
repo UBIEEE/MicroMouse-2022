@@ -184,7 +184,7 @@ void find_valid_neighbors_sorted(cell current, cell** grid)
 
     // Implementing found neighbors portion of the code: 
 
-    cell valid_neighbors[4]; // there can only ever be a maximum of 4 neighbors
+    cell *valid_neighbors[4]; // there can only ever be a maximum of 4 neighbors
     
     int current_valid_neighbor_index = 0;
 
@@ -215,7 +215,7 @@ void find_valid_neighbors_sorted(cell current, cell** grid)
                 cell neighbor = grid[y_index][x_index];
                 if (neighbor_is_reachable(current, neighbor))
                 {
-                    valid_neighbors[current_valid_neighbor_index] = grid[y_index][x_index]; // HOW ARE WE INDEXING INTO GRID?
+                    valid_neighbors[current_valid_neighbor_index] = &grid[y_index][x_index]; // HOW ARE WE INDEXING INTO GRID?
                     current_valid_neighbor_index++;
                 }
                 
@@ -228,19 +228,19 @@ void find_valid_neighbors_sorted(cell current, cell** grid)
 
     for (int i = 0; i < current_valid_neighbor_index; i++)
     {
-        int largest_val = manhattan_distance(valid_neighbors[i]);
+        int largest_val = manhattan_distance(*valid_neighbors[i]);
         int largest_index = i;
         for (int j = i; j < current_valid_neighbor_index; j++)
         {
-            if ((manhattan_distance(valid_neighbors[j]) + 1) > largest_val)
+            if ((manhattan_distance(*valid_neighbors[j]) + 1) > largest_val)
             {
-                largest_val = manhattan_distance(valid_neighbors[j]) + 1;
+                largest_val = manhattan_distance(*valid_neighbors[j]) + 1;
                 largest_index = j;
             }
         }
 
         // Swap values
-        cell temp = valid_neighbors[i];
+        cell *temp = valid_neighbors[i];
         valid_neighbors[i] = valid_neighbors[largest_index];
         valid_neighbors[largest_index] = temp;
     }
@@ -253,18 +253,46 @@ void find_valid_neighbors_sorted(cell current, cell** grid)
     
 }
 
-cell movement(cell current_cell, cell **grid) // gonna need something to represent the mouse aswell
+cell *movement(cell *current_cell, cell **grid) // gonna need something to represent the mouse aswell
 {
-    cell target_cell = pop();
+    cell *target_cell = pop();
 
-    if (cells_are_same(current_cell, target_cell))
+    if (cells_are_same(*current_cell,*target_cell))
     {
         // set the current cell as visited and update the grid with the information
         sensing(); // sensing function needs to be implemented
     }
 
-    while ((cells_are_same(current_cell, target_cell) == false) && (are_valid_neighbors(current_cell, target_cell) == false))
+    while ((cells_are_same(*current_cell, *target_cell) == false) && (are_valid_neighbors(*current_cell, *target_cell) == false))
     {
+        reorient_by_cell(current_cell, get_parent(*current_cell, grid)); // needs to be implemented
+
+        sensing(); // maybe?
+
+        move_forward(); // was move by cell
+
+        sensing(); // maybe?
+
+        current_cell = get_parent(*current_cell, grid); // get_parent function needs to be implemented
 
     }
+
+    if (are_valid_neighbors(*current_cell, *target_cell))
+    {
+        set_parentage(target_cell, current_cell);
+
+        reorient_by_cell(current_cell, target_cell);
+
+        sensing(); // maybe?
+
+        current_cell = target_cell;
+
+        move_forward(); // was move by cell
+
+        sensing(); // maybe?
+    }
+
+    find_valid_neighbors_sorted(*current_cell, grid);
+
+    return current_cell; // maybe not needed, might turn into a void function
 }

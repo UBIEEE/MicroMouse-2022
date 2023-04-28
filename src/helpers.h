@@ -13,9 +13,9 @@ typedef struct
     uint8_t position;
 } cell;
 
-bool push(cell c);
+bool push(cell *c);
 
-cell pop();
+cell *pop();
 
 bool has_top_border(cell c);
 
@@ -59,5 +59,8 @@ void set_left_as_parent(cell *input);
 
 uint8_t make_position_coordinates(int y, int x);
 
+cell *get_parent(cell current, cell** grid);
+
+void set_parentage(cell *changee, cell *parent);
 
 #endif
