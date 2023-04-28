@@ -60,34 +60,49 @@ if(is_visited(testCell) == true){
 void *parentalWatch(cell testCell, File *input_file){
      FILE *var = (input_file == NULL) ? stderr : input_file;
 
-     if(top_is_parent(testCell)){
-        fprintf(var, "True")
-     }else{
+     if (top_is_parent(testCell))
+     {
+        fprintf(var, "True");
+     }
+     else
+     {
+        fprintf(var, "error on top parent");
+     }
+
+     if (bottom_is_parent(testCell) != )
+     {
+        fprintf(var, "True");
+     }
+     else
+     {
         fprintf(var, "error on top parent")
      }
 
-     if(bottom_is_parent(testCell) != ){
-        fprintf(var, "True")
-     }else{
-        fprintf(var, "error on top parent")
+     if (right_is_parent(testCell) != )
+     {
+        fprintf(var, "True");
+     }
+     else
+     {
+        fprintf(var, "error on top parent");
      }
 
-     if(right_is_parent(testCell) != ){
-        fprintf(var, "True")
-     }else{
-        fprintf(var, "error on top parent")
+     if (left_is_parent(testCell) == true)
+     {
+        fprintf(var, "True");
+     }
+     else
+     {
+        fprintf(var, "error on top parent");
      }
 
-     if(left_is_parent(testCell) == true){
-        fprintf(var, "True")
-     }else{
-        fprintf(var, "error on top parent")
+     if (has_parent(testCell) == true)
+     {
+        fprintf(var, "True");
      }
-
-     if(has_parent(testCell) == true){
-        fprintf(var, "True")
-     }else{
-        fprintf(var, "error on parent check")
+     else
+     {
+        fprintf(var, "error on parent check");
      }
 }
 
