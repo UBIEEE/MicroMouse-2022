@@ -5,11 +5,11 @@
 
 #define STACK_LENGTH 40
 // Algorithm was simulated 1,000,000 times and the largest the stack ever got was 38
-cell stack[STACK_LENGTH];
+cell *stack[STACK_LENGTH];
 // Index where the top of the stack is
 int top_of_stack = 0;
 
-bool push(cell c)
+bool push(cell *c)
 {
     if (top_of_stack >= STACK_LENGTH) return false;
 
@@ -18,11 +18,11 @@ bool push(cell c)
     return true;
 }
 
-cell pop()
+cell * pop()
 {
     // if (top_of_stack <= 0) return;
 
-    cell c = stack[top_of_stack];
+    cell *c = stack[top_of_stack];
     top_of_stack--;
     return c;
 
@@ -263,4 +263,70 @@ uint8_t make_position_coordinates(int y, int x)
 
     return result;
 
+}
+
+cell *get_parent(cell current, cell** grid)
+{
+    int cx = get_x(current);
+    int cy = get_y(current);
+
+    int px = cx;
+    int py = cy;
+
+    if (right_is_parent(current))
+    {
+        px++;
+    }
+    else if (left_is_parent(current))
+    {
+        px--;
+    }
+    else if (top_is_parent(current))
+    {
+        py++;
+    }
+    else if (bottom_is_parent(current))
+    {
+        py--;
+    }
+
+    cell *parent = &grid[py][px]; // how are we indexing into the grid?
+
+    return parent;
+}
+
+void set_parentage(cell *changee, cell *parent)
+{
+    int cx = get_x(*changee);
+    int cy = get_y(*changee);
+    int px = get_x(*parent);
+    int py = get_y(*parent);
+
+    if ((cy == py) && (cx == px +1))
+    {
+        // Parent is to left
+        set_left_as_parent(&changee);
+        return;
+    }
+    else if ((cy == py) && (cx+1 == px))
+    {
+        // Parent is to right
+        set_right_as_parent(&changee);
+        return;
+    }
+    else if ((cx == px) && (cy == py +1))
+    {
+        // Parent is on top
+        set_top_as_parent(&changee);
+        return;
+    }
+    else if ((cx == px) && (cy + 1 == py))
+    {
+        // Parent is on bottom
+        set_bottom_as_parent(&changee);
+        return;
+    }
+    fprintf(stderr, "Error in set_parent: Changee and parent were not next to each other!");
+    return;
+    
 }

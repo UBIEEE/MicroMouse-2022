@@ -26,7 +26,7 @@ bool is_destination(cell current_cell)
     int goals[2] = { ((MAZE_SIZE/2) - 1), MAZE_SIZE};
 
     bool bx = false;
-    bool by = false;
+    bool bOOBy = false;
 
     // check if cx and cy are inside of goals
     for (int i = 0; i < 2; i++)
@@ -37,11 +37,11 @@ bool is_destination(cell current_cell)
         }
         if (cy == goals[i])
         {
-            by = true;
+            bOOBy = true;
         }
     }
 
-    if (bx && by)
+    if (bx && bOOBy)
     {
         return true;
     }
@@ -105,11 +105,6 @@ char *where_is_neighbor(cell *current,cell *neighbor){
     return ret;
 }
 
-
-
-void algorithm(){
-    fprintf(stderr, "This algorithm can print things\n");
-}
 
 int manhattan_distance(cell location)
 {
@@ -184,7 +179,7 @@ void find_valid_neighbors_sorted(cell current, cell** grid)
 
     // Implementing found neighbors portion of the code: 
 
-    cell valid_neighbors[4]; // there can only ever be a maximum of 4 neighbors
+    cell *valid_neighbors[4]; // there can only ever be a maximum of 4 neighbors
     
     int current_valid_neighbor_index = 0;
 
@@ -215,7 +210,7 @@ void find_valid_neighbors_sorted(cell current, cell** grid)
                 cell neighbor = grid[y_index][x_index];
                 if (neighbor_is_reachable(current, neighbor))
                 {
-                    valid_neighbors[current_valid_neighbor_index] = grid[y_index][x_index]; // HOW ARE WE INDEXING INTO GRID?
+                    valid_neighbors[current_valid_neighbor_index] = &grid[y_index][x_index]; // HOW ARE WE INDEXING INTO GRID?
                     current_valid_neighbor_index++;
                 }
                 
@@ -224,23 +219,23 @@ void find_valid_neighbors_sorted(cell current, cell** grid)
     }
 
     // Sort the array in terms of the manhattan distance so that the closest cells are at the end of the array
-    // Implement a selection sort on the valid_neighbors array using the manhattan distance as the value to sort by
+    // Implement a selection sort on the valid_neighbors array using the manhattan distance as the value to sort bOOBy
 
     for (int i = 0; i < current_valid_neighbor_index; i++)
     {
-        int largest_val = manhattan_distance(valid_neighbors[i]);
+        int largest_val = manhattan_distance(*valid_neighbors[i]);
         int largest_index = i;
         for (int j = i; j < current_valid_neighbor_index; j++)
         {
-            if ((manhattan_distance(valid_neighbors[j]) + 1) > largest_val)
+            if ((manhattan_distance(*valid_neighbors[j]) + 1) > largest_val)
             {
-                largest_val = manhattan_distance(valid_neighbors[j]) + 1;
+                largest_val = manhattan_distance(*valid_neighbors[j]) + 1;
                 largest_index = j;
             }
         }
 
         // Swap values
-        cell temp = valid_neighbors[i];
+        cell *temp = valid_neighbors[i];
         valid_neighbors[i] = valid_neighbors[largest_index];
         valid_neighbors[largest_index] = temp;
     }
@@ -253,18 +248,50 @@ void find_valid_neighbors_sorted(cell current, cell** grid)
     
 }
 
-cell movement(cell current_cell, cell **grid) // gonna need something to represent the mouse aswell
+cell *movement(cell *current_cell, cell **grid) // gonna need something to represent the mouse aswell
 {
-    cell target_cell = pop();
+    cell *target_cell = pop();
 
-    if (cells_are_same(current_cell, target_cell))
+    if (cells_are_same(*current_cell,*target_cell))
     {
         // set the current cell as visited and update the grid with the information
         sensing(); // sensing function needs to be implemented
     }
 
-    while ((cells_are_same(current_cell, target_cell) == false) && (are_valid_neighbors(current_cell, target_cell) == false))
+    while ((cells_are_same(*current_cell, *target_cell) == false) && (are_valid_neighbors(*current_cell, *target_cell) == false))
     {
+        reorient_by_cell(current_cell, get_parent(*current_cell, grid)); // needs to be implemented
+
+        sensing(); // maybe?
+
+        move_forward(); // was move by cell
+
+        sensing(); // maybe?
+
+        current_cell = get_parent(*current_cell, grid); // get_parent function needs to be implemented
 
     }
+
+    if (are_valid_neighbors(*current_cell, *target_cell))
+    {
+        set_parentage(target_cell, current_cell);
+
+        reorient_by_cell(current_cell, target_cell);
+
+        sensing(); // maybe?
+
+        current_cell = target_cell;
+
+        move_forward(); // was move by cell
+
+        sensing(); // maybe?
+    }
+
+    find_valid_neighbors_sorted(*current_cell, grid);
+
+    return current_cell; // maybe not needed, might turn into a void function
+}
+
+void algorithm(){
+    fprintf(stderr, "This algorithm can print things\n");
 }
