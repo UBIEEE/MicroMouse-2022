@@ -106,11 +106,6 @@ char *where_is_neighbor(cell *current,cell *neighbor){
 }
 
 
-
-void algorithm(){
-    fprintf(stderr, "This algorithm can print things\n");
-}
-
 int manhattan_distance(cell location)
 {
     int goal_lower = (MAZE_SIZE/2) - 1;
@@ -295,4 +290,8 @@ cell *movement(cell *current_cell, cell **grid) // gonna need something to repre
     find_valid_neighbors_sorted(*current_cell, grid);
 
     return current_cell; // maybe not needed, might turn into a void function
+}
+
+void algorithm(){
+    fprintf(stderr, "This algorithm can print things\n");
 }
